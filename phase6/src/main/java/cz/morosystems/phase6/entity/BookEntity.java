@@ -22,9 +22,6 @@ public class BookEntity {
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column(name="USERID")
-	private Integer userId;
 
 	@Pattern(regexp = "[a-zA-Z0-9 ]+", message = "Title can not be empty and can have alphanumerical characters only.")
 	@Column(name = "TITLE")
@@ -34,15 +31,11 @@ public class BookEntity {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
-	@ManyToMany(cascade = { CascadeType.ALL }, mappedBy = "books", targetEntity = UserEntity.class)
-	private Set<UserEntity> users;
+	//@ManyToMany(cascade = { CascadeType.ALL }, mappedBy = "books", targetEntity = UserEntity.class)
+	//private Set<UserEntity> users;
 
 	public Integer getId() {
 		return id;
-	}
-
-	public Integer getUserId() {
-		return userId;
 	}
 
 	public String getTitle() {
@@ -53,16 +46,8 @@ public class BookEntity {
 		return description;
 	}
 
-	public Set<UserEntity> getUsers() {
-		return users;
-	}
-
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
 	}
 
 	public void setTitle(String title) {
@@ -73,7 +58,42 @@ public class BookEntity {
 		this.description = description;
 	}
 
-	public void setUsers(Set<UserEntity> users) {
-		this.users = users;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BookEntity other = (BookEntity) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		return true;
+	}
+	
+	
 }

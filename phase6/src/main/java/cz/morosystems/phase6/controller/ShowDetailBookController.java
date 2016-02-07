@@ -48,8 +48,10 @@ public class ShowDetailBookController {
 			model.addAttribute("user",userManager.getUser(userId));
 			return "addBook";
 		}
-		// pridej uzivatele
-		bookManager.addBook(book);
+		// pridej knihu k uzivateli
+		UserEntity user = userManager.getUser(userId);
+		user.getBooks().add(book);
+		userManager.editUser(user);
 		return String.format("redirect:/admin/detail/%d", userId);
 	}
 	
@@ -57,7 +59,8 @@ public class ShowDetailBookController {
 	@RequestMapping(value = "/edit/{userId}/{bookId}", method = RequestMethod.GET)
 	public String initEditBookForm(@PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId, Model model) 
 	{
-		model.addAttribute("user", userManager.getUser(userId));
+		UserEntity user = userManager.getUser(userId);
+		model.addAttribute("user", user);
 		model.addAttribute("book", bookManager.getBook(bookId));
 		return "editBook";
 	}

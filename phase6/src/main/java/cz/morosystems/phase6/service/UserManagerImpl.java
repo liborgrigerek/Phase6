@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.morosystems.phase6.dao.UserDAO;
+import cz.morosystems.phase6.entity.AccountEntity;
+import cz.morosystems.phase6.entity.BookEntity;
 import cz.morosystems.phase6.entity.UserEntity;
 
 @Service
@@ -28,6 +30,11 @@ public class UserManagerImpl implements UserManager {
 	@Transactional
 	public void addUser(UserEntity user) {
 		userDAO.addUser(user);
+	}
+	
+	@Transactional
+	public void editUser(UserEntity user) {
+		userDAO.editUser(user);
 	}
 	
 	@Transactional

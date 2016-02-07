@@ -49,7 +49,11 @@ public class ShowUserController {
 			return "editUser";
 		}
 		// pridej uzivatele
-		userManager.addUser(user);
+		if (user.getId() == null) {
+			userManager.addUser(user);
+		} else {
+			userManager.editUser(user);
+		}
 		return "redirect:/admin/";
 	}
 

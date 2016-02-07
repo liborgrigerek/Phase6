@@ -16,12 +16,6 @@ public class BookDaoImpl implements BookDAO  {
 
 	@Autowired
     private SessionFactory sessionFactory;
-	
-	@Transactional
-	@SuppressWarnings("unchecked")
-	public List<BookEntity> getAllBooks(Integer userId) {
-		return this.sessionFactory.getCurrentSession().createCriteria(BookEntity.class).add(Restrictions.eq("userId",userId)).addOrder(Order.asc("id")).list();
-	}
 	@Transactional
 	public BookEntity getBook(Integer bookId) {
 		return (BookEntity) this.sessionFactory.getCurrentSession().createQuery("from BookEntity book where book.id = :bookid").setParameter("bookid", bookId).uniqueResult();
